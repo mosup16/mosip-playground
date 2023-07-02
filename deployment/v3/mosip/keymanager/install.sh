@@ -26,7 +26,7 @@ function installing_keymanager() {
   helm -n $NS install kernel-keygen mosip/keygen --wait --wait-for-jobs --version $CHART_VERSION -f keygen_values.yaml
 
   echo Installing keymanager
-  helm -n $NS install keymanager mosip/keymanager --version $CHART_VERSION
+  helm -n $NS install keymanager mosip/keymanager --version $CHART_VERSION  --set mariadb.enabled=true 
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
   echo Installed keymanager services
